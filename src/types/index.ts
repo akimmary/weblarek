@@ -28,7 +28,7 @@ export type TProductsResponse = {
   items: IProduct[];
 }
 
-export type TOrderData = Pick<IBuyer, 'payment' | 'email' | 'phone' | 'address'> & {
+export type TOrderData = IBuyer & {
   total: number;
   items: IProduct['id'][];
 }
@@ -38,3 +38,4 @@ export type TOrderResult = {
   total: number;
 }
 
+export type TValidationErrors = Partial<Record<keyof IBuyer, string>>;

@@ -1,4 +1,4 @@
-import { IApi, IProduct, TOrderData, TOrderResult } from '../../../types/index';
+import { IApi, IProduct, TOrderData, TOrderResult } from '../../types/index';
 
 export class AppApi {
   private api: IApi;

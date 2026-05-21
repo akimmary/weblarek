@@ -1,10 +1,10 @@
-import { IBuyer, TPayment } from '../../../types/index';
+import { IBuyer, TPayment, TValidationErrors } from '../../types/index';
 
 export class BuyerModel {
-  _data: IBuyer;
+  protected  data: IBuyer;
 
   constructor() {
-    this._data = {
+    this.data = {
       payment: '',
       email: '',
       phone: '',
@@ -13,27 +13,27 @@ export class BuyerModel {
   }
 
   setPayment(payment: TPayment): void {
-    this._data.payment = payment;
+    this.data.payment = payment;
   }
 
   setEmail(email: string): void {
-    this._data.email = email;
+    this.data.email = email;
   }
 
   setPhone(phone: string): void {
-    this._data.phone = phone;
+    this.data.phone = phone;
   }
 
   setAddress(address: string): void {
-    this._data.address = address;
+    this.data.address = address;
   }
 
   getAllData(): IBuyer {
-    return { ...this._data };
+    return { ...this.data };
   }
 
   clear(): void {
-      this._data = {
+      this.data = {
     payment: '',
     email: '',
     phone: '',
@@ -41,19 +41,19 @@ export class BuyerModel {
   }
 }
 
-  validate(): Partial<Record<keyof IBuyer, string>> {
-    const errors: Partial<Record<keyof IBuyer, string>> = {};
+  validate(): TValidationErrors {
+    const errors: TValidationErrors = {};
     
-    if (!this._data.payment) {
+    if (!this.data.payment) {
       errors.payment = 'Не выбран вид оплаты';
     }
-    if (!this._data.email) {
+    if (!this.data.email) {
       errors.email = 'Укажите email';
     }
-    if (!this._data.phone) {
+    if (!this.data.phone) {
       errors.phone = 'Укажите телефон';
     }
-    if (!this._data.address) {
+    if (!this.data.address) {
       errors.address = 'Укажите адрес';
     }
     return errors;

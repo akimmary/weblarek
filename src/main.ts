@@ -1,9 +1,9 @@
 import './scss/styles.scss';
 import { Api } from './components/base/Api';
-import { CatalogModel } from './components/base/Models/catalog-model';
-import { CartModel } from './components/base/Models/cart-model';
-import { BuyerModel } from './components/base/Models/buyer-model';
-import { AppApi } from './components/base/Models/app-api';
+import { CatalogModel } from './components/models/catalog-model';
+import { CartModel } from './components/models/cart-model';
+import { BuyerModel } from './components/models/buyer-model';
+import { AppApi } from './components/models/app-api';
 import { apiProducts } from './utils/data';
 import { API_URL } from './utils/constants';
 
