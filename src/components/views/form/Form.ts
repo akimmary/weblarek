@@ -33,20 +33,11 @@ export class Form<T> extends Component<T> {
     }
   }
 
-  protected getInputValue(name: keyof T): string {
-   const input = this.container.querySelector(`[name="${String(name)}"]`) as HTMLInputElement;
-    return input?.value ?? '';
-  }
-
   set valid(value: boolean) {
      this.submitButton.disabled = !value;
   }
   
   set errors(value: string) {
     this.errorElement.textContent = value
-  }
-
-  getData(): T {
-    return {} as T;  
   }
 }

@@ -17,21 +17,21 @@ export class OrderForm extends Form<IOrderForm> {
 
     this.cardButton.addEventListener('click', () => {
       this.payment = 'card';
-      this.events.emit('order:input', this.getData());
+      this.events.emit('order:input');
     });
     
     this.cashButton.addEventListener('click', () => {
       this.payment = 'cash';
-      this.events.emit('order:input', this.getData());
+      this.events.emit('order:input');
     });
 
    this.addressInput.addEventListener('input', () => {
-      this.events.emit('order:input', this.getData());
+      this.events.emit('order:input');
     });
 
     this.container.addEventListener('submit', (event) => {
       event.preventDefault();
-      this.events.emit('order:submit', this.getData());
+      this.events.emit('order:submit');
       })
   }
 
@@ -48,19 +48,5 @@ export class OrderForm extends Form<IOrderForm> {
 
   set address(value: string) {
     this.addressInput.value = value
-  }
-
-  getData(): IOrderForm {
-    let payment: 'card' | 'cash' | '' = '';
-    if (this.cardButton.classList.contains('button_alt-active')) {
-      payment = 'card';
-    } else if (this.cashButton.classList.contains('button_alt-active')) {
-      payment = 'cash';
-    }
-    
-    return {
-      payment,
-      address: this.addressInput.value
-    };
   }
 }

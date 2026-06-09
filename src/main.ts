@@ -6,10 +6,12 @@ import { BuyerModel } from './components/models/buyer-model';
 import { AppApi } from './components/models/app-api';
 import { apiProducts } from './utils/data';
 import { API_URL } from './utils/constants';
+import { EventEmitter } from './components/base/Events';
 
+const events = new EventEmitter();
 // ===== 1. ПРОВЕРКА КАТАЛОГА =====
 console.log('========== ПРОВЕРКА КАТАЛОГА ==========');
-const catalog = new CatalogModel();
+const catalog = new CatalogModel(events);
 //Проверка общего каталога
 catalog.setProducts(apiProducts.items);
 console.log('Товары сохранены в каталог');
@@ -31,7 +33,7 @@ console.log('Выбранный товар после сброса:', catalog.ge
 
 // ===== 2. ПРОВЕРКА КОРЗИНЫ =====
 console.log('========== ПРОВЕРКА КОРЗИНЫ ==========');
-const cart = new CartModel();
+const cart = new CartModel(events);
 
 // Добавление товаров
 const product1 = catalog.getProducts()[0];
@@ -67,7 +69,7 @@ console.log('Корзина после очистки:', cart.getItems());
 
  // ===== 3. ПРОВЕРКА ПОКУПАТЕЛЯ =====
 console.log('========== ПРОВЕРКА ПОКУПАТЕЛЯ ==========');
-const buyer = new BuyerModel();
+const buyer = new BuyerModel(events);
 
 // Установка данных по отдельным методам
 buyer.setPayment('card');
