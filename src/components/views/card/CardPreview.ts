@@ -18,18 +18,25 @@ export class CardPreview extends Card<ICardPreview> {
 
     this.addButton.addEventListener('click', (event) => {
       event.stopPropagation();
-      events.emit('card:add', { id: this.container.getAttribute('data-id') ?? '' });
+      const id = this.container.getAttribute('data-id') ?? '';
+      const isInCart = this.addButton.textContent === 'Удалить из корзины';
+
+      if (isInCart) {
+        this.events.emit('card:remove', { id });
+      } else {
+        this.events.emit('card:add', { id });
+      }
     });
   }
-
+  
   set description(value: string) {
     this.descriptionElement.textContent = value;
   }
 
   set inCart(value: boolean) {
     if (value) {
-      this.addButton.textContent = 'Уже в корзине';
-      this.addButton.disabled = true;
+      this.addButton.textContent = 'Удалить из корзины';
+      this.addButton.disabled = false;
     } else {
       this.addButton.textContent = 'В корзину';
       this.addButton.disabled = false;
@@ -43,7 +50,11 @@ export class CardPreview extends Card<ICardPreview> {
     this.image = value.image;
     this.description = value.description;
     this.container.setAttribute('data-id', value.id);
-    
+     
+    if (value.price === null) {
+      this.addButton.disabled = true;
+      this.addButton.textContent = 'Недоступно';
+    }
     if (value.inCart) {
       this.inCart = value.inCart;
     }

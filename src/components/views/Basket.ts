@@ -17,6 +17,7 @@ export class Basket extends Component<IBasket> {
     this.orderButton = ensureElement<HTMLButtonElement>('.basket__button', this.container);
 
     this.orderButton.addEventListener('click', () => {
+      console.log('Кнопка "Оформить" нажата');
       this.events.emit('order:submit');
     })
   }

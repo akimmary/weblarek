@@ -14,7 +14,10 @@ export class ContactsForm extends Form<IContactsForm> {
     this.phoneInput = ensureElement<HTMLInputElement>('input[name="phone"]', this.container);
 
     this.container.addEventListener('input', () => {
-      this.events.emit('contacts:input');
+      this.events.emit('contacts:input', {
+        email: this.emailInput.value,
+        phone: this.phoneInput.value
+    });
     })
 
     this.container.addEventListener('submit', (event) => {

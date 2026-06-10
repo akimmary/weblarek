@@ -17,16 +17,16 @@ export class OrderForm extends Form<IOrderForm> {
 
     this.cardButton.addEventListener('click', () => {
       this.payment = 'card';
-      this.events.emit('order:input');
+      this.events.emit('order:input', { payment: 'card' });
     });
     
     this.cashButton.addEventListener('click', () => {
       this.payment = 'cash';
-      this.events.emit('order:input');
+      this.events.emit('order:input', { payment: 'cash' });
     });
 
    this.addressInput.addEventListener('input', () => {
-      this.events.emit('order:input');
+      this.events.emit('order:input', { address: this.addressInput.value });
     });
 
     this.container.addEventListener('submit', (event) => {
@@ -47,6 +47,6 @@ export class OrderForm extends Form<IOrderForm> {
   }
 
   set address(value: string) {
-    this.addressInput.value = value
+    this.addressInput.value = value;
   }
 }

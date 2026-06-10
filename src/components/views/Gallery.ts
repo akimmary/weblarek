@@ -1,5 +1,4 @@
 import { Component } from '../base/Component'
-import { ensureElement } from '../../utils/utils'
 import { IGallery } from '../../types';
 
 export class Gallery extends Component<IGallery> {
@@ -8,7 +7,7 @@ export class Gallery extends Component<IGallery> {
   constructor(container: HTMLElement) {
     super(container);
 
-    this.catalogElement = ensureElement<HTMLElement>('.gallery', this.container);
+    this.catalogElement = container;
   }
 
   set catalog(items: HTMLElement[]) {
