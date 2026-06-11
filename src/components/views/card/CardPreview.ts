@@ -2,13 +2,15 @@ import { IEvents } from '../../base/Events';
 import { ensureElement } from '../../../utils/utils';
 import { Card } from './Card';
 import { ICardPreview } from '../../../types';
-
+import { CDN_URL, categoryMap  } from '../../../utils/constants';
 
 export class CardPreview extends Card<ICardPreview> {
+  protected categoryElement: HTMLElement;
+  protected imageElement: HTMLImageElement;
   protected descriptionElement: HTMLElement;
   protected addButton: HTMLButtonElement;
 
-  constructor(container: HTMLElement, protected events: IEvents) {
+  constructor(container: HTMLElement, protected events: IEvents, onAction: () => void) {
     super(container);
 
     this.categoryElement = ensureElement<HTMLElement>('.card__category', this.container);
@@ -18,29 +20,37 @@ export class CardPreview extends Card<ICardPreview> {
 
     this.addButton.addEventListener('click', (event) => {
       event.stopPropagation();
-      const id = this.container.getAttribute('data-id') ?? '';
-      const isInCart = this.addButton.textContent === 'Удалить из корзины';
-
-      if (isInCart) {
-        this.events.emit('card:remove', { id });
-      } else {
-        this.events.emit('card:add', { id });
-      }
+      onAction();
     });
   }
   
+  set category(value: string) {
+    this.categoryElement.textContent = value;
+    
+    Object.values(categoryMap).forEach(className => {
+      this.categoryElement.classList.remove(className);
+    });
+    
+    const className = categoryMap[value as keyof typeof categoryMap];
+    if (className) {
+      this.categoryElement.classList.add(className);
+    }
+  }
+
+  set image(value: string) {
+    this.imageElement.src = CDN_URL + value;
+  }
+
   set description(value: string) {
     this.descriptionElement.textContent = value;
   }
 
-  set inCart(value: boolean) {
-    if (value) {
-      this.addButton.textContent = 'Удалить из корзины';
-      this.addButton.disabled = false;
-    } else {
-      this.addButton.textContent = 'В корзину';
-      this.addButton.disabled = false;
-    }
+  set buttonText(value: string) {
+    this.addButton.textContent = value;
+  }
+
+  set buttonDisabled(value: boolean) {
+    this.addButton.disabled = value;
   }
 
   set data(value: ICardPreview) {
@@ -48,16 +58,9 @@ export class CardPreview extends Card<ICardPreview> {
     this.price = value.price;
     this.category = value.category;
     this.image = value.image;
-    this.description = value.description;
-    this.container.setAttribute('data-id', value.id);
-     
-    if (value.price === null) {
-      this.addButton.disabled = true;
-      this.addButton.textContent = 'Недоступно';
-    }
-    if (value.inCart) {
-      this.inCart = value.inCart;
-    }
+    this.description = value.description;  
+    this.buttonText = value.buttonText ?? '';
+    this.buttonDisabled = value.buttonDisabled ?? false;
   }
 }
 

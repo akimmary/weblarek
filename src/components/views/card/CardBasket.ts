@@ -8,15 +8,16 @@ export class CardBasket extends Card<ICardBasket> {
   protected indexElement: HTMLElement;
   protected deleteButton: HTMLButtonElement;
 
-  constructor(container: HTMLElement, protected events: IEvents) {
+  constructor(container: HTMLElement, protected events: IEvents, onDelete: () => void) {
     super(container);
 
     this.indexElement = ensureElement<HTMLElement>('.basket__item-index', this.container);
     this.deleteButton = ensureElement<HTMLButtonElement>('.basket__item-delete', this.container);
     
-    this.deleteButton.addEventListener('click', () => {
-      this.events.emit('card:delete', { id: this.container.getAttribute('data-id') ?? '' })
-    })
+    this.deleteButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      onDelete();
+    });
   }
 
     set index(value: number) {
@@ -27,6 +28,5 @@ export class CardBasket extends Card<ICardBasket> {
       this.title = value.title;
       this.price = value.price;
       this.index = value.index;
-      this.container.setAttribute('data-id', value.id);
     }
 }

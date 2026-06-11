@@ -1,5 +1,5 @@
 import { IProduct } from '../../types/index';
-import { IEvents } from '../base/Events'; 
+import { IEvents } from '../base/Events';
 
 export class CartModel {
   protected items: IProduct[];
@@ -11,25 +11,27 @@ export class CartModel {
   }
 
   getItems(): IProduct[] {
-    return this.items;
+    return [...this.items];
   }
 
   addProduct(product: IProduct): void {
-    this.items.push(product);
-    this.events.emit('cart:changed', this.items);
+    if (!this.containsProduct(product.id)) {
+      this.items.push(product);
+      this.events.emit('cart:changed');
+    }
   }
 
   removeProduct(product: IProduct): void {
     const index = this.items.findIndex(item => item.id === product.id);
     if (index !== -1) {
       this.items.splice(index, 1);
-      this.events.emit('cart:changed', this.items);
+      this.events.emit('cart:changed');
     }
   }
 
   clear(): void {
     this.items = [];
-    this.events.emit('cart:changed', this.items);
+    this.events.emit('cart:changed');
   }
 
   getTotalPrice(): number {

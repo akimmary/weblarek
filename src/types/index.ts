@@ -58,8 +58,9 @@ export interface ISuccess {
 
 export interface ICardPreview extends IProduct {
   inCart?: boolean;
+  buttonText?: string;     
+  buttonDisabled?: boolean;  
 }
-
 export interface ICardBasket extends IProduct {
   index: number;
 }
@@ -70,7 +71,7 @@ export interface IBasket {
 }
 
 export interface IOrderForm {
-  payment: 'card' | 'cash' | '';
+  payment: TPayment;
   address: string;
 }
 

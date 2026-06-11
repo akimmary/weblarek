@@ -14,11 +14,11 @@ export class CatalogModel {
 
   setProducts(products: IProduct[]): void {
     this.products = products;
-    this.events.emit('catalog:changed', this.products);
+    this.events.emit('catalog:changed');
   }
 
   getProducts(): IProduct[] {
-    return this.products;
+    return [...this.products];
   }
 
   getProductById(id: string): IProduct | undefined {
@@ -27,7 +27,7 @@ export class CatalogModel {
 
   setSelectedProduct(product: IProduct | null): void {
     this.selectedProduct = product;
-    this.events.emit('catalog:selected', product ?? undefined);
+    this.events.emit('catalog:selected');
   }
 
   getSelectedProduct(): IProduct | null {

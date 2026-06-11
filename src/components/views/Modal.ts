@@ -14,12 +14,12 @@ export class Modal extends Component<IModal> {
     this.contentElement = ensureElement<HTMLElement>('.modal__content', this.container);
 
     this.modalButton.addEventListener('click', () => {
-      this.events.emit('modal:close')
-    })
+      this.close();
+    });
 
     this.container.addEventListener('click', (event) => {
       if (event.target === this.container) {
-        this.events.emit('modal:close');
+        this.close();
       }
     });
   }

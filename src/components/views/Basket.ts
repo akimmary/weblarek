@@ -1,8 +1,7 @@
 import { Component } from '../base/Component';
 import { ensureElement } from '../../utils/utils';
-import {  IBasket } from '../../types';
-import { IEvents } from '../base/Events'; 
-
+import { IBasket } from '../../types';
+import { IEvents } from '../base/Events';
 
 export class Basket extends Component<IBasket> {
   protected listElement: HTMLElement;
@@ -17,20 +16,16 @@ export class Basket extends Component<IBasket> {
     this.orderButton = ensureElement<HTMLButtonElement>('.basket__button', this.container);
 
     this.orderButton.addEventListener('click', () => {
-      console.log('Кнопка "Оформить" нажата');
-      this.events.emit('order:submit');
-    })
-  }
-
-  set items(items: HTMLElement[]) {
-    this.listElement.innerHTML = '';
-    items.forEach(item => {
-      this.listElement.appendChild(item);
+      this.events.emit('basket:checkout');
     });
   }
 
+  set items(items: HTMLElement[]) {
+    this.listElement.replaceChildren(...items);
+  }
+
   set total(value: number) {
-    this.priceElement.textContent = `${value} синапсов`
+    this.priceElement.textContent = `${value} синапсов`;
   }
 
   set disabled(value: boolean) {

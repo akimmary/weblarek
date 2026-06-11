@@ -1,5 +1,5 @@
 import { ensureElement } from '../../../utils/utils';
-import { IEvents } from '../../base/Events'; 
+import { IEvents } from '../../base/Events';
 import { Form } from './Form';
 import { IContactsForm } from '../../../types';
 
@@ -17,7 +17,7 @@ export class ContactsForm extends Form<IContactsForm> {
       this.events.emit('contacts:input', {
         email: this.emailInput.value,
         phone: this.phoneInput.value
-    });
+      });
     })
 
     this.container.addEventListener('submit', (event) => {
