@@ -52,15 +52,5 @@ export class CardPreview extends Card<ICardPreview> {
   set buttonDisabled(value: boolean) {
     this.addButton.disabled = value;
   }
-
-  set data(value: ICardPreview) {
-    this.title = value.title;
-    this.price = value.price;
-    this.category = value.category;
-    this.image = value.image;
-    this.description = value.description;  
-    this.buttonText = value.buttonText ?? '';
-    this.buttonDisabled = value.buttonDisabled ?? false;
-  }
 }
 

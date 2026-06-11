@@ -2,7 +2,7 @@ import { IEvents } from '../../base/Events';
 import { ensureElement } from '../../../utils/utils';
 import { Card } from './Card';
 import { IProduct } from '../../../types';
-import { CDN_URL, categoryMap  } from '../../../utils/constants';
+import { CDN_URL, categoryMap } from '../../../utils/constants';
 
 
 export class CardCatalog extends Card<IProduct> {
@@ -17,30 +17,21 @@ export class CardCatalog extends Card<IProduct> {
 
     this.container.addEventListener('click', onClick);
   }
-  
+
   set category(value: string) {
-    if (this.categoryElement) {
-      this.categoryElement.textContent = value;
-      
-      Object.values(categoryMap).forEach(className => {
-        this.categoryElement?.classList.remove(className);
-      });
-      
-      const className = categoryMap[value as keyof typeof categoryMap];
-      if (className) {
-        this.categoryElement.classList.add(className);
-      }
+    this.categoryElement.textContent = value;
+
+    Object.values(categoryMap).forEach(className => {
+      this.categoryElement.classList.remove(className);
+    });
+
+    const className = categoryMap[value as keyof typeof categoryMap];
+    if (className) {
+      this.categoryElement.classList.add(className);
     }
   }
 
   set image(value: string) {
     this.imageElement.src = CDN_URL + value;
-  }
-
-  set data(value: IProduct) {
-    this.title = value.title;
-    this.price = value.price;
-    this.category = value.category;
-    this.image = value.image;
   }
 }

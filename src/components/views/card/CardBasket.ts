@@ -23,10 +23,4 @@ export class CardBasket extends Card<ICardBasket> {
     set index(value: number) {
     this.indexElement.textContent = String(value);
   }
-
-    set data(value: ICardBasket) {
-      this.title = value.title;
-      this.price = value.price;
-      this.index = value.index;
-    }
 }
